@@ -75,7 +75,7 @@ public class DnDBoardActivity extends AppCompatActivity {
   private ModelRenderable druidRenderable;
   private ModelRenderable fighterRenderable;
   private ModelRenderable rogueRenderable;
-  
+
   private Vector3 distanceStartVec = null;
 
   @Override
@@ -453,24 +453,6 @@ public class DnDBoardActivity extends AppCompatActivity {
               figure.setParent(anchorNode);
 
           }
-
-
-
-            // Distance measurement
-//            Pose endPose = hitResult.getHitPose();
-//            // Compute the difference vector between the two hit locations.
-//            float dx = startPose.tx() - endPose.tx();
-//            float dy = startPose.ty() - endPose.ty();
-//            float dz = startPose.tz() - endPose.tz();
-//
-//            // Compute the straight-line distance.
-//            float distanceMeters = (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
-//            float scale = 20f*3.28f;
-//            Toast toast =
-//                    Toast.makeText(this, Float.toString(distanceMeters*scale), Toast.LENGTH_LONG);
-//            toast.setGravity(Gravity.CENTER, 0, 0);
-//            toast.show();
-
         });
   }
 
