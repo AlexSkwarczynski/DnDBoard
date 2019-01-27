@@ -31,6 +31,7 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
@@ -43,7 +44,10 @@ public class DnDBoardActivity extends AppCompatActivity {
   private static final double MIN_OPENGL_VERSION = 3.0;
 
   private ArFragment arFragment;
+
   private ModelRenderable andyRenderable;
+  private ModelRenderable dragonRenderable;
+  private ModelRenderable wizardRenderable;
 
   @Override
   @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -74,11 +78,39 @@ public class DnDBoardActivity extends AppCompatActivity {
               return null;
             });
 
+    ModelRenderable.builder()
+        .setSource(this, R.raw.dragon)
+        .build()
+        .thenAccept(renderable -> dragonRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load dragon renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
+        .setSource(this, R.raw.wizard)
+        .build()
+        .thenAccept(renderable -> wizardRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load wizard renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
     arFragment.setOnTapArPlaneListener(
         (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
           if (andyRenderable == null) {
             return;
           }
+
+          float scale = 0.05f;
 
           // Create the Anchor.
           Anchor anchor = hitResult.createAnchor();
@@ -87,9 +119,13 @@ public class DnDBoardActivity extends AppCompatActivity {
 
           // Create the transformable andy and add it to the anchor.
           TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
-          andy.setParent(anchorNode);
-          andy.setRenderable(andyRenderable);
+          andy.setRenderable(wizardRenderable);
+          andy.getScaleController().setMinScale(0.01f);
+          andy.getScaleController().setMaxScale(0.1f);
+          andy.getScaleController().setSensitivity(0);
+          andy.setLocalScale(new Vector3(scale, scale, scale));
           andy.select();
+          andy.setParent(anchorNode);
         });
   }
 

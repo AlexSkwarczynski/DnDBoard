@@ -40,3 +40,94 @@ sceneform.asset('sampledata/models/andy.obj',
         'default',
         'sampledata/models/andy.sfa',
         'src/main/res/raw/andy')
+
+
+sceneform.asset('sampledata/models/Monsters/cultist.obj',
+        'default',
+        'sampledata/models/Monsters/cultist.sfa',
+        'src/main/res/raw/cultist')
+
+sceneform.asset('sampledata/models/Monsters/demon.obj',
+        'default',
+        'sampledata/models/Monsters/demon.sfa',
+        'src/main/assets/demon')
+
+sceneform.asset('sampledata/models/Monsters/dragon.obj',
+        'default',
+        'sampledata/models/Monsters/dragon.sfa',
+        'src/main/assets/dragon')
+
+sceneform.asset('sampledata/models/Monsters/goblin.obj',
+        'default',
+        'sampledata/models/Monsters/goblin.sfa',
+        'src/main/assets/goblin')
+
+sceneform.asset('sampledata/models/Monsters/demon.obj',
+        'default',
+        'sampledata/models/Monsters/demon.sfa',
+        'src/main/res/raw/demon')
+
+sceneform.asset('sampledata/models/Monsters/dragon.obj',
+        'default',
+        'sampledata/models/Monsters/dragon.sfa',
+        'src/main/res/raw/dragon')
+
+sceneform.asset('sampledata/models/Monsters/goblin.obj',
+        'default',
+        'sampledata/models/Monsters/goblin.sfa',
+        'src/main/res/raw/goblin')
+
+sceneform.asset('sampledata/models/Monsters/orc.obj',
+        'default',
+        'sampledata/models/Monsters/orc.sfa',
+        'src/main/res/raw/orc')
+
+sceneform.asset('sampledata/models/Monsters/skeleton.obj',
+        'default',
+        'sampledata/models/Monsters/skeleton.sfa',
+        'src/main/res/raw/skeleton')
+
+sceneform.asset('sampledata/models/Monsters/zombie.obj',
+        'default',
+        'sampledata/models/Monsters/zombie.sfa',
+        'src/main/res/raw/zombie')
+
+sceneform.asset('sampledata/models/Players/bard.obj',
+        'default',
+        'sampledata/models/Players/bard.sfa',
+        'src/main/res/raw/bard')
+
+sceneform.asset('sampledata/models/Players/cleric.obj',
+        'default',
+        'sampledata/models/Players/cleric.sfa',
+        'src/main/res/raw/cleric')
+
+sceneform.asset('sampledata/models/Players/druid.obj',
+        'default',
+        'sampledata/models/Players/druid.sfa',
+        'src/main/res/raw/druid')
+
+sceneform.asset('sampledata/models/Players/fighter.obj',
+        'default',
+        'sampledata/models/Players/fighter.sfa',
+        'src/main/res/raw/fighter')
+
+sceneform.asset('sampledata/models/Players/paladin.obj',
+        'default',
+        'sampledata/models/Players/paladin.sfa',
+        'src/main/res/raw/paladin')
+
+sceneform.asset('sampledata/models/Players/ranger.obj',
+        'default',
+        'sampledata/models/Players/ranger.sfa',
+        'src/main/res/raw/ranger')
+
+sceneform.asset('sampledata/models/Players/rogue.obj',
+        'default',
+        'sampledata/models/Players/rogue.sfa',
+        'src/main/res/raw/rogue')
+
+sceneform.asset('sampledata/models/Players/wizard.obj',
+        'default',
+        'sampledata/models/Players/wizard.sfa',
+        'src/main/res/raw/wizard')
