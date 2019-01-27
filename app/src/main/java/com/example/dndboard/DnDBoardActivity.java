@@ -35,13 +35,17 @@ import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.core.Pose;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.PlaneRenderer;
 import com.google.ar.sceneform.rendering.Texture;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
+import com.google.ar.sceneform.ux.BaseTransformableNode;
 import com.google.ar.sceneform.ux.TransformableNode;
+
+import static java.lang.Math.round;
 
 /**
  * This is an example activity that uses the Sceneform UX package to make common AR tasks easier.
@@ -51,13 +55,28 @@ public class DnDBoardActivity extends AppCompatActivity {
   private static final double MIN_OPENGL_VERSION = 3.0;
 
   private ArFragment arFragment;
+  private Spinner modelSpinner;
 
   private ModelRenderable andyRenderable;
   private ViewRenderable textRenderable;
-  private ModelRenderable dragonRenderable;
-  private ModelRenderable wizardRenderable;
 
-  Pose startPose = null;
+  private ModelRenderable orcRenderable;
+  private ModelRenderable goblinsRenderable;
+  private ModelRenderable zombieRenderable;
+  private ModelRenderable skeletonRenderable;
+  private ModelRenderable cultistRenderable;
+  private ModelRenderable dragonRenderable;
+  private ModelRenderable demonRenderable;
+  private ModelRenderable rangerRenderable;
+  private ModelRenderable paladinRenderable;
+  private ModelRenderable clericRenderable;
+  private ModelRenderable wizardRenderable;
+  private ModelRenderable bardRenderable;
+  private ModelRenderable druidRenderable;
+  private ModelRenderable fighterRenderable;
+  private ModelRenderable rogueRenderable;
+  
+  private Vector3 distanceStartVec = null;
 
   @Override
   @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -90,11 +109,11 @@ public class DnDBoardActivity extends AppCompatActivity {
     setContentView(R.layout.activity_ux);
 
     //monster list
-   Spinner monSpinner = (Spinner) findViewById(R.id.mon_spinner);
-    ArrayAdapter<CharSequence> mon_adapter = ArrayAdapter.createFromResource(this,
+    modelSpinner = (Spinner) findViewById(R.id.mon_spinner);
+    ArrayAdapter<CharSequence> model_adapter = ArrayAdapter.createFromResource(this,
               R.array.monsters, android.R.layout.simple_spinner_item);
-    mon_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    monSpinner.setAdapter(mon_adapter);
+    model_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    modelSpinner.setAdapter(model_adapter);
 
 
     arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
@@ -115,6 +134,71 @@ public class DnDBoardActivity extends AppCompatActivity {
             });
 
     ModelRenderable.builder()
+        .setSource(this, R.raw.orc)
+        .build()
+        .thenAccept(renderable -> orcRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load orc renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
+        .setSource(this, R.raw.goblin)
+        .build()
+        .thenAccept(renderable -> goblinsRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load goblin renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
+        .setSource(this, R.raw.zombie)
+        .build()
+        .thenAccept(renderable -> zombieRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load zombie renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
+        .setSource(this, R.raw.skeleton)
+        .build()
+        .thenAccept(renderable -> skeletonRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load skeleton renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
+        .setSource(this, R.raw.cultist)
+        .build()
+        .thenAccept(renderable -> cultistRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load cultist renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
         .setSource(this, R.raw.dragon)
         .build()
         .thenAccept(renderable -> dragonRenderable = renderable)
@@ -122,6 +206,58 @@ public class DnDBoardActivity extends AppCompatActivity {
             throwable -> {
               Toast toast =
                   Toast.makeText(this, "Unable to load dragon renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
+        .setSource(this, R.raw.demon)
+        .build()
+        .thenAccept(renderable -> demonRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load demon renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
+        .setSource(this, R.raw.ranger)
+        .build()
+        .thenAccept(renderable -> rangerRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load ranger renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
+        .setSource(this, R.raw.paladin)
+        .build()
+        .thenAccept(renderable -> paladinRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load paladin renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
+        .setSource(this, R.raw.cleric)
+        .build()
+        .thenAccept(renderable -> clericRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load cleric renderable", Toast.LENGTH_LONG);
               toast.setGravity(Gravity.CENTER, 0, 0);
               toast.show();
               return null;
@@ -140,27 +276,184 @@ public class DnDBoardActivity extends AppCompatActivity {
               return null;
             });
 
+    ModelRenderable.builder()
+        .setSource(this, R.raw.bard)
+        .build()
+        .thenAccept(renderable -> bardRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load bard renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
+        .setSource(this, R.raw.druid)
+        .build()
+        .thenAccept(renderable -> druidRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load druid renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
+        .setSource(this, R.raw.fighter)
+        .build()
+        .thenAccept(renderable -> fighterRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load fighter renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
+    ModelRenderable.builder()
+        .setSource(this, R.raw.rogue)
+        .build()
+        .thenAccept(renderable -> rogueRenderable = renderable)
+        .exceptionally(
+            throwable -> {
+              Toast toast =
+                  Toast.makeText(this, "Unable to load rogue renderable", Toast.LENGTH_LONG);
+              toast.setGravity(Gravity.CENTER, 0, 0);
+              toast.show();
+              return null;
+            });
+
     arFragment.setOnTapArPlaneListener(
         (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
           if (andyRenderable == null) {
             return;
           }
-          float scale = 0.05f;
 
-          // Create the Anchor.
-          Anchor anchor = hitResult.createAnchor();
-          AnchorNode anchorNode = new AnchorNode(anchor);
-          anchorNode.setParent(arFragment.getArSceneView().getScene());
+          float scale = 0.5f;
+            ModelRenderable figureRenderable = null;
 
-          // Create the transformable andy and add it to the anchor.
-          TransformableNode andy = new TransformableNode(arFragment.getTransformationSystem());
-          andy.setRenderable(wizardRenderable);
-          andy.getScaleController().setMinScale(0.01f);
-          andy.getScaleController().setMaxScale(0.1f);
-          andy.getScaleController().setSensitivity(0);
-          andy.setLocalScale(new Vector3(scale, scale, scale));
-          andy.select();
-          andy.setParent(anchorNode);
+          switch (modelSpinner.getSelectedItem().toString()) {
+              case "Distance Tool":
+
+//                  Pose distanceStartPose = distanceStartAnchor.getPose();
+
+                  if (distanceStartVec != null) {
+                      Pose endPose = hitResult.getHitPose();
+                      // Compute the difference vector between the two hit locations.
+                      float dx = distanceStartVec.x - endPose.tx();
+                      float dy = distanceStartVec.y  - endPose.ty();
+                      float dz = distanceStartVec.z  - endPose.tz();
+
+                      // Compute the straight-line distance.
+                      float distanceMeters = (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+                      float distanceScale = 20f*3.28f;
+                      Toast toast =
+                              Toast.makeText(this, String.format("%d ft", round(distanceMeters*distanceScale)), Toast.LENGTH_LONG);
+                      toast.setGravity(Gravity.CENTER, 0, 0);
+                      toast.show();
+                  }
+
+                  break;
+
+              case "Orc":
+                  scale = 0.05f;
+                  figureRenderable = orcRenderable;
+                  break;
+              case "Goblins":
+                  scale = 0.03f;
+                  figureRenderable = goblinsRenderable;
+                  break;
+              case "Zombie":
+                  scale = 0.04f;
+                  figureRenderable = zombieRenderable;
+                  break;
+              case "Skeleton":
+                  scale = 0.05f;
+                  figureRenderable = skeletonRenderable;
+                  break;
+              case "Cultist":
+                  scale = 0.05f;
+                  figureRenderable = cultistRenderable;
+                  break;
+              case "Dragon":
+                  scale = 0.275f;
+                  figureRenderable = dragonRenderable;
+                  break;
+              case "Demon":
+                  scale = 0.15f;
+                  figureRenderable = demonRenderable;
+                  break;
+              case "Ranger":
+                  scale = 0.05f;
+                  figureRenderable = rangerRenderable;
+                  break;
+              case "Paladin":
+                  scale = 0.05f;
+                  figureRenderable = paladinRenderable;
+                  break;
+              case "Cleric":
+                  scale = 0.05f;
+                  figureRenderable = clericRenderable;
+                  break;
+              case "Wizard":
+                  scale = 0.05f;
+                  figureRenderable = wizardRenderable;
+                  break;
+              case "Bard":
+                  scale = 0.05f;
+                  figureRenderable = bardRenderable;
+                  break;
+              case "Druid":
+                  scale = 0.05f;
+                  figureRenderable = druidRenderable;
+                  break;
+              case "Fighter":
+                  scale = 0.05f;
+                  figureRenderable = fighterRenderable;
+                  break;
+              case "Rogue":
+                  scale = 0.05f;
+                  figureRenderable = rogueRenderable;
+                  break;
+              default:
+                  Toast errorToast =
+                    Toast.makeText(this, "Unknown Selection", Toast.LENGTH_LONG);
+                  errorToast.setGravity(Gravity.CENTER, 0, 0);
+                  errorToast.show();
+                  return;
+          }
+
+          if (figureRenderable != null) {
+              // Create the Anchor.
+              Anchor anchor = hitResult.createAnchor();
+              AnchorNode anchorNode = new AnchorNode(anchor);
+              anchorNode.setParent(arFragment.getArSceneView().getScene());
+
+              // Create the transformable andy and add it to the anchor.
+              TransformableNode figure = new TransformableNode(arFragment.getTransformationSystem());
+              figure.getScaleController().setMinScale(0.01f);
+              figure.getScaleController().setMaxScale(1f);
+              figure.getScaleController().setSensitivity(0);
+              figure.setRenderable(figureRenderable);
+
+              // Handles start point for distance measurement
+              figure.setOnTapListener( (nodeHitResult, nodeMotionEvent) -> {
+                  Log.d(TAG, "Node tapped");
+                  distanceStartVec = figure.getWorldPosition();
+              });
+              distanceStartVec = figure.getWorldPosition();
+
+              figure.setLocalScale(new Vector3(scale, scale, scale));
+              figure.select();
+              figure.setParent(anchorNode);
+
+          }
+
 
 
             // Distance measurement
