@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
+import com.google.ar.core.Pose;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
@@ -51,6 +52,8 @@ public class DnDBoardActivity extends AppCompatActivity {
   private ModelRenderable dragonRenderable;
   private ModelRenderable wizardRenderable;
 
+  Pose startPose = null;
+
   @Override
   @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
   // CompletableFuture requires api level 24
@@ -68,7 +71,7 @@ public class DnDBoardActivity extends AppCompatActivity {
                       .setWrapMode(Texture.Sampler.WrapMode.REPEAT)
                       .build();
 
-// R.drawable.custom_texture is a .png file in src/main/res/drawable
+    // R.drawable.custom_texture is a .png file in src/main/res/drawable
       Texture.builder()
               .setSource(this, R.drawable.stone)
               .setSampler(sampler)
@@ -128,7 +131,6 @@ public class DnDBoardActivity extends AppCompatActivity {
           if (andyRenderable == null) {
             return;
           }
-
           float scale = 0.05f;
 
           // Create the Anchor.
@@ -145,7 +147,26 @@ public class DnDBoardActivity extends AppCompatActivity {
           andy.setLocalScale(new Vector3(scale, scale, scale));
           andy.select();
           andy.setParent(anchorNode);
+
+
+            // Distance measurement
+//            Pose endPose = hitResult.getHitPose();
+//            // Compute the difference vector between the two hit locations.
+//            float dx = startPose.tx() - endPose.tx();
+//            float dy = startPose.ty() - endPose.ty();
+//            float dz = startPose.tz() - endPose.tz();
+//
+//            // Compute the straight-line distance.
+//            float distanceMeters = (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+//            float scale = 20f*3.28f;
+//            Toast toast =
+//                    Toast.makeText(this, Float.toString(distanceMeters*scale), Toast.LENGTH_LONG);
+//            toast.setGravity(Gravity.CENTER, 0, 0);
+//            toast.show();
+
         });
+
+
   }
 
   /**
