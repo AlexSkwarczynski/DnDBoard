@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="monsters">
+        <item>Orc</item>
+        <item>Goblins</item>
+        <item>Zombie</item>
+        <item>Skeleton</item>
+        <item>Cultist</item>
+        <item>Dragon</item>
+        <item>Demon</item>
+        <item>Ranger</item>
+        <item>Paladin</item>
+        <item>Cleric</item>
+        <item>Wizard</item>
+        <item>Bard</item>
+        <item>Druid</item>
+        <item>Fighter</item>
+        <item>Rogue</item>
+    </string-array>
+</resources>

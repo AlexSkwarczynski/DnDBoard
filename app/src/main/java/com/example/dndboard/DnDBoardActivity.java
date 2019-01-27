@@ -25,13 +25,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
-
+import android.view.View;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
@@ -44,6 +48,7 @@ public class DnDBoardActivity extends AppCompatActivity {
 
   private ArFragment arFragment;
   private ModelRenderable andyRenderable;
+  private ViewRenderable textRend1;
 
   @Override
   @SuppressWarnings({"AndroidApiChecker", "FutureReturnValueIgnored"})
@@ -57,6 +62,15 @@ public class DnDBoardActivity extends AppCompatActivity {
     }
 
     setContentView(R.layout.activity_ux);
+
+    //monster list
+   Spinner monSpinner = (Spinner) findViewById(R.id.mon_spinner);
+    ArrayAdapter<CharSequence> mon_adapter = ArrayAdapter.createFromResource(this,
+              R.array.monsters, android.R.layout.simple_spinner_item);
+    mon_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    monSpinner.setAdapter(mon_adapter);
+
+
     arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
 
     // When you build a Renderable, Sceneform loads its resources in the background while returning
@@ -73,7 +87,6 @@ public class DnDBoardActivity extends AppCompatActivity {
               toast.show();
               return null;
             });
-
     arFragment.setOnTapArPlaneListener(
         (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
           if (andyRenderable == null) {
