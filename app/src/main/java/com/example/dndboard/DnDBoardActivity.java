@@ -33,6 +33,8 @@ import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.google.ar.sceneform.rendering.PlaneRenderer;
+import com.google.ar.sceneform.rendering.Texture;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
@@ -59,6 +61,23 @@ public class DnDBoardActivity extends AppCompatActivity {
     if (!checkIsSupportedDeviceOrFinish(this)) {
       return;
     }
+
+      Texture.Sampler sampler =
+              Texture.Sampler.builder()
+                      .setMinFilter(Texture.Sampler.MinFilter.LINEAR)
+                      .setWrapMode(Texture.Sampler.WrapMode.REPEAT)
+                      .build();
+
+// R.drawable.custom_texture is a .png file in src/main/res/drawable
+      Texture.builder()
+              .setSource(this, R.drawable.stone)
+              .setSampler(sampler)
+              .build()
+              .thenAccept(texture -> {
+                  arFragment.getArSceneView().getPlaneRenderer()
+                          .getMaterial().thenAccept(material ->
+                          material.setTexture(PlaneRenderer.MATERIAL_TEXTURE, texture));
+              });
 
     setContentView(R.layout.activity_ux);
     arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
