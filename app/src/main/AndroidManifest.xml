@@ -23,6 +23,8 @@
             application only being visible in the Google Play Store on devices that support
             ARCore. -->
         <meta-data android:name="com.google.ar.core" android:value="required" />
+        <meta-data android:name="com.google.android.ar.API_KEY"
+            android:value="AIzaSyBYF2y2bptjt-WuPlFH_vGUyrQPAZAZfeo"/>
 
         <activity
             android:name=".DnDBoardActivity"

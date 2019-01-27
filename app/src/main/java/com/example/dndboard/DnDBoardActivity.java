@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 import com.google.ar.core.Anchor;
+import com.google.ar.core.Config;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.core.Pose;
@@ -455,6 +456,8 @@ public class DnDBoardActivity extends AppCompatActivity {
           }
         });
   }
+
+
 
   /**
    * Returns false and displays an error message if Sceneform can not run, true if Sceneform can run
